@@ -14,6 +14,13 @@ class Empire {
   }
 
   generateTraits() {
-    return traitsList[0];
+    var randomTrait = traitsList[this.getRandomIntInclusive(0, traitsList.length - 1)];
+    return traitsDict[randomTrait];
+  }
+
+  getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
