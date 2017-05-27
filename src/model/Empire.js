@@ -11,11 +11,37 @@ class Empire {
 
   constructor() {
     this.traits = this.generateTraits();
+    this.ethics = this.generateEthics();
   }
 
   generateTraits() {
-    var randomTrait = traitsList[this.getRandomIntInclusive(0, traitsList.length - 1)];
-    return traitsDict[randomTrait];
+    return traitsDict[traitsList[this.getRandomIntInclusive(0, traitsList.length - 1)]];
+  }
+
+  generateEthics() {
+    var ethicsPoints = 3;
+    var ethics = [];
+
+    while (ethicsPoints > 0) {
+      var randomEthic = ethicsDict[ethicsList[this.getRandomIntInclusive(0, ethicsList.length - 1)]];
+      
+      // Don't allow adding of an ethic if it will take us over the ethics allowance
+      if (randomEthic.cost > ethicsPoints) continue;
+
+      // Don't allow multiple ethics of the same category
+      var alreadyHasCategory = false;
+      ethics.forEach(function (ethic) {
+        if (ethic.category === randomEthic.category)
+          alreadyHasCategory = true;
+      });
+
+      if (alreadyHasCategory) continue;
+
+      ethics.push(randomEthic);
+      ethicsPoints -= randomEthic.cost;
+    }
+    
+    return ethics;
   }
 
   getRandomIntInclusive(min, max) {

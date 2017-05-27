@@ -1,6 +1,14 @@
 odin.view.showEmpire = {
   setupUserInterface: function () {
     var empire = new Empire();
-    document.getElementById('empireConfig').innerHTML = empire.traits.name;
+    document.getElementById('empireTraits').innerHTML = empire.traits.name;
+
+    var ethicsString = "";
+
+    empire.ethics.forEach(function(ethic) {
+      ethicsString += ethic.name + " ";
+    });
+
+    document.getElementById('empireEthics').innerHTML = ethicsString;
   }
 };
