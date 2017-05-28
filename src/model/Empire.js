@@ -12,17 +12,14 @@ class Empire {
   constructor() {
     this.ethics = this.generateEthics();
     this.traits = this.generateTraits();
+    this.authority = this.generateAuthority();
   }
 
   generateTraits() {
     var traitsPoints = 2;
     var traits = [];
     var triesLeft = 20;
-    var empireEthics = [];
-
-    this.ethics.forEach(function (empireEthic) {
-      empireEthics.push(empireEthic.name);
-    });
+    var empireEthics = getEmpireEthics();
 
     while (true) {
       // May be mathematically impossible to balance traits picks, so reset and start again
@@ -140,6 +137,27 @@ class Empire {
     }
     
     return ethics;
+  }
+
+  generateAuthority() {   
+    var empireEthics = getEmpireEthics();
+    var randomAuthority;
+
+    do {
+      randomAuthority = authorityDict[authorityList[this.getRandomIntInclusive(0, authorityList.length - 1)]];
+    } while (this.intersection(empireEthics, randomAuthority.disallowedEthics));
+
+    return randomAuthority;
+  }
+
+  getEmpireEthics() {
+    var empireEthics = [];
+
+    this.ethics.forEach(function (empireEthic) {
+      empireEthics.push(empireEthic.name);
+    });
+
+    return empireEthics;
   }
 
   getRandomIntInclusive(min, max) {

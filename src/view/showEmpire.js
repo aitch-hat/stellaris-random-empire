@@ -8,7 +8,7 @@ odin.view.showEmpire = {
       traitsString += trait.name + " ";
     });
 
-    document.getElementById('empireTraits').innerHTML = traitsString;
+    document.getElementById("empireTraits").innerHTML = traitsString;
 
     var ethicsString = "";
 
@@ -16,6 +16,8 @@ odin.view.showEmpire = {
       ethicsString += ethic.name + " ";
     });
 
-    document.getElementById('empireEthics').innerHTML = ethicsString;
+    document.getElementById("empireEthics").innerHTML = ethicsString;
+
+    document.getElementById("empireAuthority").innerHTML = empire.authority.name;
   }
 };
