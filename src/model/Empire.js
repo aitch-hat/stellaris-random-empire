@@ -10,14 +10,19 @@ class Empire {
   // }
 
   constructor() {
-    this.traits = this.generateTraits();
     this.ethics = this.generateEthics();
+    this.traits = this.generateTraits();
   }
 
   generateTraits() {
     var traitsPoints = 2;
     var traits = [];
     var triesLeft = 20;
+    var empireEthics = [];
+
+    this.ethics.forEach(function (empireEthic) {
+      empireEthics.push(empireEthic.name);
+    });
 
     while (true) {
       // May be mathematically impossible to balance traits picks, so reset and start again
@@ -28,15 +33,51 @@ class Empire {
       }
       
       var randomTrait = traitsDict[traitsList[this.getRandomIntInclusive(0, traitsList.length - 1)]];
+      console.log("Generated random trait: " + randomTrait.name);
+
+      // Some traits can't be matched with some ethics
+      if (!this.intersection(empireEthics, randomTrait.allowedEthics) && randomTrait.allowedEthics != "all") {
+        console.log("Trait doesn't match with one or more empire ethics, trying a different one");
+        continue;
+      }
+
+      // Some traits can't be matched with other traits
+      var hasConflictingTrait = false;
+
+      traits.forEach(function (trait) {
+        console.log("Checking if " + trait.name + " conflicts with " + randomTrait.name);
+        if (trait.opposites.indexOf(randomTrait.name) >= 0) {
+          console.log(randomTrait.name + " conflicts with " + trait.name);
+          hasConflictingTrait = true;
+        }
+      });
+
+      if (hasConflictingTrait) continue;
 
       // Don't want to add the same trait twice
-      if (traits.indexOf(randomTrait) >= 0) continue;
+      if (traits.indexOf(randomTrait) >= 0) {
+        console.log("Trait already added");
+        continue;
+      }
 
       // Can't be left with fewer than zero points
       if (traits.length === 4 && (traitsPoints - randomTrait.cost) < 0) {
-        console.log("Trying again...");
+        console.log("Trait would leave fewer than 0 trait points, trying again...");
         triesLeft--;
         continue;
+      }
+
+      if (randomTrait.cost < 0) {  // Negative trait
+        if (traitsPoints > 0) {  // Trait points to spare
+          if (Math.random() > 0.5) {
+            console.log("Not adding negative trait while trait points are positive this time");
+            continue;
+          } else {  // Sometimes add negative traits when we've got points to spare
+            console.log("Adding negative trait even though trait points are positive this time: " + randomTrait.name);
+            traits.push(randomTrait);
+            traitsPoints -= randomTrait.cost;
+          }
+        }
       }
 
       // Add positive traits if we've got points to spare, and negative ones if 
@@ -61,6 +102,7 @@ class Empire {
             console.log("Accept fewer than 3 traits");
             break;
           } else {
+            console.log("Adding new trait: " + randomTrait.name)
             traits.push(randomTrait);
             traitsPoints -= randomTrait.cost;
           }
@@ -104,5 +146,11 @@ class Empire {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  intersection(haystack, arr) {
+    return arr.some(function (v) {
+        return haystack.indexOf(v) >= 0;
+    });
   }
 }
