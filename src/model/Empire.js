@@ -13,6 +13,7 @@ class Empire {
     this.ethics = this.generateEthics();
     this.traits = this.generateTraits();
     this.authority = this.generateAuthority();
+    this.civics = this.generateCivics();
   }
 
   generateTraits() {
@@ -150,6 +151,59 @@ class Empire {
     return randomAuthority;
   }
 
+  generateCivics() {
+    var civicsPoints = 2;
+    var civics = [];
+    var empireEthics = this.getEmpireEthics();
+
+    while (civicsPoints !== 0) {
+      randomCivic = civicDict[civicList[this.getRandomIntInclusive(0, civicList.length - 1)]];
+
+      // Check special requirements for Fanatic Purifiers
+      if (randomCivic.name == "Fanatic Purifiers" && this.canBeFanaticPurifiers()) {
+        civics.push(randomCivic);
+        civicsPoints--;
+        continue;
+      }
+
+      // Filter by required authority
+      if (randomCivic.requiredAuthority.indexOf(this.authority) < 0) continue;
+
+      // Filter by required ethics
+      var numEthicsRequired = randomCivic.requiredEthics.length;
+      var numEthicsMatched = 0;
+      randomCivic.requiredEthics.forEach(function (requiredEthic) {
+        empireEthics.forEach(function (empireEthic) {
+          if (empireEthic.name.indexOf(requiredEthic) >= 0) numEthicsMatched++;
+        });
+      });
+
+      if (numEthicsMatched != numEthicsRequired) continue;
+
+      // Filter by disallowed ethics
+      var empireHasDisallowedEthic = false;
+      
+      randomCivic.disallowedEthics.forEach(function (disallowedEthic) {
+        empireEthics.forEach(function (empireEthic) {
+          if (empireEthic.name.indexOf(disallowedEthic) >= 0) empireHasDisallowedEthic = true;
+        });
+      });
+
+      if (empireHasDisallowedEthic) continue;
+
+      // Filter by disallowed civics
+      var empireHasDisallowedCivic = false;
+      civics.forEach(function (civic) {
+        if (randomCivic.disallowedCivics.indexOf(civic.name) >= 0) empireHasDisallowedCivic = true;
+      });
+
+      if (empireHasDisallowedCivic) continue;
+
+      civics.push(randomCivic);
+      civicsPoints--;
+    }
+  }
+
   getEmpireEthics() {
     var empireEthics = [];
 
@@ -158,6 +212,18 @@ class Empire {
     });
 
     return empireEthics;
+  }
+
+  canBeFanaticPurifiers() {
+    var empireEthics = this.getEmpireEthics();
+
+    // Must be a Fanatic Xenophobe.
+    // Must be either Militarist or Spiritualist.
+    // Must not have the Synchretic Evolution civic.
+    return (empireEthics.indexOf("Fanatic Xenophobe") >= 0 && 
+            (empireEthics.indexOf("Militarist") >= 0 ||
+             empireEthics.indexOf("Spiritualist") >= 0) &&
+            !this.civics.indexOf("Synchretic Evolution"));
   }
 
   getRandomIntInclusive(min, max) {
