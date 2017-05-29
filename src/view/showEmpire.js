@@ -33,9 +33,9 @@ odin.view.showEmpire = {
 
     var homeworldTypes = ["Arid", "Desert", "Savannah", "Alpine", "Arctic", "Tundra", "Continental", "Ocean", "Tropical"];
     var randomHomeworld = homeworldTypes[Math.floor(Math.random() * (homeworldTypes.length))];
-    var ftlTypes = ["Warp", "Hyperspace", "Wormhole"];
+    var ftlTypes = ["Warp Drive", "Hyper Drive", "Wormhole"];
     var randomFtl = ftlTypes[Math.floor(Math.random() * (ftlTypes.length))];
-    var startingWeaponTypes = ["Kinetic", "Energy", "Explosives"];
+    var startingWeaponTypes = ["Kinetic", "Energy", "Explosive"];
     var randomWeapon = startingWeaponTypes[Math.floor(Math.random() * (startingWeaponTypes.length))];
 
     document.getElementById("empireTraits").innerHTML = traitsString;
@@ -50,9 +50,11 @@ odin.view.showEmpire = {
                                                         randomHomeworld +
                                                         "</span></li></ul>";
     document.getElementById("empireFtl").innerHTML = "<ul class='demo-list-item mdl-list'><li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + 
+                                                     "<img src='images/icons/drives/ship_part_" + randomFtl.replace(" ", "_").toLowerCase() + ".png' alt='" + randomFtl + "' style='padding-right: 6px' height='29' width='29'>" +
                                                      randomFtl +
                                                      "</span></li></ul>";
     document.getElementById("empireWeapon").innerHTML = "<ul class='demo-list-item mdl-list'><li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + 
+                                                        "<img src='images/icons/weapons/ship_part_" + randomWeapon.toLowerCase() + ".png' alt='" + randomWeapon + "' style='padding-right: 6px' height='29' width='29'>" +
                                                         randomWeapon +
                                                         "</span></li></ul>";
   }
