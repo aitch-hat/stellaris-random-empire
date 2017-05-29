@@ -142,7 +142,6 @@ class Empire {
   }
 
   matchesAuthority(civic) {
-    console.log("Checking if " + civic.name + " matches empire authority");
     if (civic.requiredAuthority == "none") {
       return true;
     } else {
@@ -151,8 +150,6 @@ class Empire {
   }
 
   matchesRequiredEthics(civic) {
-    console.log("Checking if " + civic.name + " matches empire ethics");
-
     if (civic.requiredEthics == "none") return true;
 
     var numEthicsRequired = civic.requiredEthics.length;
@@ -169,8 +166,6 @@ class Empire {
   }
 
   noDisallowedEthics(civic) {
-    console.log("Checking if " + civic.name + " matches empire ethics");
-
     if (civic.disallowedEthics == "none") return true;
 
     var empireHasDisallowedEthic = false;
@@ -186,8 +181,6 @@ class Empire {
   }
 
   conflictingCivics(civic, civics) {
-    console.log("Checking if " + civic.name + " matches existing civics");
-
     // Can't conflict with no civics!
     if (civics.length === 0) return false;
 
@@ -203,7 +196,6 @@ class Empire {
   }
 
   duplicateCivics(civic, civics) {
-    console.log("Checking if " + civic.name + " has already been added");
 
     // No duplicates if no civics!
     if (civics.length === 0) return false;
@@ -218,7 +210,6 @@ class Empire {
   }
 
   getPossibleCivics() {
-    console.log("Generating possible civics")
     var civic;
     var empire = this;
     var possibleCivics = [];
@@ -227,14 +218,12 @@ class Empire {
       civic = civicsDict[civicName];
       if (civic.name == "Fanatic Purifiers") {
         if (empire.canBeFanaticPurifiers()) {
-          console.log("Adding: " + civic.name);
           possibleCivics.push(civic);
         }
       } else {
         if (empire.matchesAuthority(civic) && 
             empire.matchesRequiredEthics(civic) && 
             empire.noDisallowedEthics(civic)) {
-          console.log("Adding: " + civic.name);
           possibleCivics.push(civic);
         }
       }
