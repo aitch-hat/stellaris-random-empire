@@ -60,7 +60,6 @@
         <div class="mdl-layout--large-screen-only mdl-layout__header-row">
         </div>
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-          <a href="#apps" class="mdl-layout__tab is-active">Apps</a>
           <a href="https://odingaming.com/" class="mdl-layout__tab">Odin Gaming</a>
           <a href="https://odingaming.com/contact/" class="mdl-layout__tab">Contact</a>
           <a href="LICENSE" class="mdl-layout__tab">License</a>
@@ -87,7 +86,10 @@
                 <h4 class="mdl-cell mdl-cell--12-col">Stellaris Random Empire Generator</h4>
                 <div style="margin-bottom: 40px">
                   <p>
-                    This app will generate a random empire for Stellaris, including species traits, ethics, government type, civics etc.
+                    This app will generate a random empire for Stellaris, taking into account any exclusive combinations and requirements. There will sometimes be species trait points to spare, which can be used later in the game when genetically engineering your species. This means that some randomly-generated species will have bad starts, but will have many options open to them when the appropriate technologies have been researched.
+                  </p>
+                  <p>
+                    If you'd like some ideas for naming your species, homeworld, empire etc. then consider visiting <a href="http://www.fantasynamegenerators.com/">Fantasy Name Generators</a>. There are over 1000 name generators on the site, many of which I've found useful for Stellaris.
                   </p>
                   <div style="text-align: center">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="odin.view.showEmpire.setupUserInterface()">
@@ -95,51 +97,50 @@
                     </button>
                   </div>
                 </div>
-                
                 <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                  <div class="section__circle-container__circle mdl-color--primary"><h3 class="circle-container-text">T</h3></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
                   <h5>Species traits</h5>
                   <div id="empireTraits"></div>
                 </div>
                 <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                  <div class="section__circle-container__circle mdl-color--primary"><h3 class="circle-container-text">E</h3></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
                   <h5>Ethics</h5>
                   <div id="empireEthics"></div>
                 </div>
                 <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                  <div class="section__circle-container__circle mdl-color--primary"><h3 class="circle-container-text">A</h3></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
                   <h5>Authority</h5>
                   <div id="empireAuthority"></div>
                 </div>
                 <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                  <div class="section__circle-container__circle mdl-color--primary"><h3 class="circle-container-text">C</h3></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
                   <h5>Civics</h5>
                   <div id="empireCivics"></div>
                 </div>
                 <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                  <div class="section__circle-container__circle mdl-color--primary"><h3 class="circle-container-text">P</h3></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
                   <h5>Planet preference</h5>
                   <div id="empirePlanet"></div>
                 </div>
                 <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                  <div class="section__circle-container__circle mdl-color--primary"><h3 class="circle-container-text">F</h3></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
                   <h5>FTL type</h5>
                   <div id="empireFtl"></div>
                 </div>
                 <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                  <div class="section__circle-container__circle mdl-color--primary"><h3 class="circle-container-text">W</h3></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
                   <h5>Starting weapon</h5>
@@ -152,8 +153,8 @@
             <div class="mdl-mini-footer--left-section">
               <ul class="mdl-mini-footer--link-list">
                 <li><a href="https://odingaming.com/">Odin Gaming</a></li>
-                <li><a href="LICENSE">License</a></li>
                 <li><a href="https://odingaming.com/contact/">Contact</a></li>
+                <li><a href="LICENSE">License</a></li>
               </ul>
             </div>
           </footer>
