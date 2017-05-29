@@ -49,71 +49,116 @@
     }
     </style>
   </head>
-  <body>
-    <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
-      <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
-        <div class="mdl-layout__header-row">
-          <img src="images/favicon-32x32.png" alt="Odin Gaming" style="padding:5pt">
-          <span class="mdl-layout-title">APPS | <a href="https://odingaming.com">ODIN GAMING</a></span>
-          <div class="mdl-layout-spacer"></div>
+  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+          <h3>Odin Gaming Web Apps</h3>
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+          <a href="#apps" class="mdl-layout__tab is-active">Apps</a>
+          <a href="https://odingaming.com/" class="mdl-layout__tab">Odin Gaming</a>
+          <a href="https://odingaming.com/contact/" class="mdl-layout__tab">Contact</a>
+          <a href="LICENSE" class="mdl-layout__tab">License</a>
         </div>
       </header>
-      <div class="demo-ribbon"></div>
-      <main class="demo-main mdl-layout__content">
-        <div class="demo-container mdl-grid">
-          <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
-            <h3>Odin Gaming Web Apps</h3>
-              <p>
-                This page hosts web applications written for my blog, <a href="https://odingaming.com/">Odin Gaming</a>, where I write articles about strategy and simulation gaming, with a focus on mods, playthroughs, and epic stories.
-              </p>
-              <p>
-                If you like the content on this page, consider checking it out!
-              </p>
-            <h3>Stellaris Random Empire Generator</h3>
-              <p>
-                This app will generate a random empire for Stellaris, including species traits, ethics, government type, civics etc.
-              </p>
-              <p>
-                Click the button below to generate!
-              </p>
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="odin.view.showEmpire.setupUserInterface()">
-                Generate Empire
-              </button>
-              <p>
-                <div id="empireTraits"></div>
-              </p>
-              <p>
-                <div id="empireEthics"></div>
-              </p>
-              <p>
-                <div id="empireAuthority"></div>
-              </p>
-              <p>
-                <div id="empireCivics"></div>
-              </p>
-              <p>
-                <div id="empirePlanet"></div>
-              </p>
-              <p>
-                <div id="empireFtl"></div>
-              </p>
-              <p>
-                <div id="empireWeapon"></div>
-              </p>
-          </div>
+      <main class="mdl-layout__content">
+        <div class="mdl-layout__tab-panel is-active" id="overview">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text">
+                <h4>Overview</h4>
+                  <p>
+                    This page hosts web applications written for my blog, <a href="https://odingaming.com/">Odin Gaming</a>, where I write articles about strategy and simulation gaming, with a focus on mods, playthroughs, and epic stories.
+                  </p>
+                  <p>
+                    If you like the content on this page, consider checking it out!
+                  </p>
+              </div>
+            </div>
+          </section>
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                <h4 class="mdl-cell mdl-cell--12-col">Stellaris Random Empire Generator</h4>
+                <div style="margin-bottom: 40px">
+                  <p>
+                    This app will generate a random empire for Stellaris, including species traits, ethics, government type, civics etc.
+                  </p>
+                  <div style="text-align: center">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="odin.view.showEmpire.setupUserInterface()">
+                      Generate Empire
+                    </button>
+                  </div>
+                </div>
+                
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5>Species traits</h5>
+                  <div id="empireTraits"></div>
+                </div>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5>Ethics</h5>
+                  <div id="empireEthics"></div>
+                </div>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5>Authority</h5>
+                  <div id="empireAuthority"></div>
+                </div>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5>Civics</h5>
+                  <div id="empireCivics"></div>
+                </div>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5>Planet preference</h5>
+                  <div id="empirePlanet"></div>
+                </div>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5>FTL type</h5>
+                  <div id="empireFtl"></div>
+                </div>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5>Starting weapon</h5>
+                  <div id="empireWeapon"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <footer class="demo-footer mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">
+              <ul class="mdl-mini-footer--link-list">
+                <li><a href="https://odingaming.com/">Odin Gaming</a></li>
+                <li><a href="LICENSE">License</a></li>
+                <li><a href="https://odingaming.com/contact/">Contact</a></li>
+              </ul>
+            </div>
+          </footer>
         </div>
-        <footer class="demo-footer mdl-mini-footer">
-          <div class="mdl-mini-footer--left-section">
-            <ul class="mdl-mini-footer--link-list">
-              <li><a href="https://odingaming.com/">Odin Gaming</a></li>
-              <li><a href="LICENSE">License</a></li>
-              <li><a href="https://odingaming.com/contact/">Contact</a></li>
-            </ul>
-          </div>
-        </footer>
       </main>
     </div>
-    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   </body>
 </html>
