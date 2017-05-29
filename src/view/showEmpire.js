@@ -22,9 +22,12 @@ odin.view.showEmpire = {
     });
     civicsString += "</ul>";
 
-    var homeworldTypes = ["Arid", "Desert", "Savanna", "Alpine", "Arctic", "Tundra", "Continental", "Ocean", "Tropical"];
+    var homeworldTypes = ["Arid", "Desert", "Savannah", "Alpine", "Arctic", "Tundra", "Continental", "Ocean", "Tropical"];
+    var randomHomeworld = homeworldTypes[Math.floor(Math.random() * (homeworldTypes.length))];
     var ftlTypes = ["Warp", "Hyperspace", "Wormhole"];
+    var randomFtl = ftlTypes[Math.floor(Math.random() * (ftlTypes.length))];
     var startingWeaponTypes = ["Kinetic", "Energy", "Explosives"];
+    var randomWeapon = startingWeaponTypes[Math.floor(Math.random() * (startingWeaponTypes.length))];
 
     document.getElementById("empireTraits").innerHTML = traitsString;
     document.getElementById("empireEthics").innerHTML = ethicsString;
@@ -33,13 +36,14 @@ odin.view.showEmpire = {
                                                            "</span></li></ul>";
     document.getElementById("empireCivics").innerHTML = civicsString;
     document.getElementById("empirePlanet").innerHTML = "<ul class='demo-list-item mdl-list'><li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + 
-                                                        homeworldTypes[Math.floor(Math.random() * (homeworldTypes.length))] +
+                                                        "<img src='images/icons/traits/trait_pc_" + randomHomeworld.toLowerCase() + "_preference.png' alt='" + randomHomeworld + "' style='padding-right: 6px'>" +
+                                                        randomHomeworld +
                                                         "</span></li></ul>";
     document.getElementById("empireFtl").innerHTML = "<ul class='demo-list-item mdl-list'><li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + 
-                                                     ftlTypes[Math.floor(Math.random() * (ftlTypes.length))] +
+                                                     randomFtl +
                                                      "</span></li></ul>";
     document.getElementById("empireWeapon").innerHTML = "<ul class='demo-list-item mdl-list'><li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + 
-                                                        startingWeaponTypes[Math.floor(Math.random() * (startingWeaponTypes.length))] +
+                                                        randomWeapon +
                                                         "</span></li></ul>";
   }
 };
