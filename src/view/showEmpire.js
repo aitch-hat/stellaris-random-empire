@@ -19,5 +19,13 @@ odin.view.showEmpire = {
     document.getElementById("empireEthics").innerHTML = ethicsString;
 
     document.getElementById("empireAuthority").innerHTML = empire.authority.name;
+
+    var civicsString = "";
+
+    empire.civics.forEach(function(civic) {
+      civicsString += civic.name + " ";
+    });
+
+    document.getElementById("empireCivics").innerHTML = civicsString;
   }
 };

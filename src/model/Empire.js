@@ -10,9 +10,13 @@ class Empire {
   // }
 
   constructor() {
+    console.log("Generating ethics...");
     this.ethics = this.generateEthics();
+    console.log("Generating traits...");
     this.traits = this.generateTraits();
+    console.log("Generating authority...");
     this.authority = this.generateAuthority();
+    console.log("Generating civics...");
     this.civics = this.generateCivics();
   }
 
@@ -20,22 +24,20 @@ class Empire {
     var traitsPoints = 2;
     var traits = [];
     var triesLeft = 20;
-    var empireEthics = getEmpireEthics();
+    var empireEthics = this.getEmpireEthics();
+    var randomTrait;
 
     while (true) {
       // May be mathematically impossible to balance traits picks, so reset and start again
       if (triesLeft === 0) {
-        console.log("Ran out of tries, starting again...");
         traits = [];
         triesLeft = 20;
       }
       
-      var randomTrait = traitsDict[traitsList[this.getRandomIntInclusive(0, traitsList.length - 1)]];
-      console.log("Generated random trait: " + randomTrait.name);
+      randomTrait = traitsDict[traitsList[this.getRandomIntInclusive(0, traitsList.length - 1)]];
 
       // Some traits can't be matched with some ethics
       if (!this.intersection(empireEthics, randomTrait.allowedEthics) && randomTrait.allowedEthics != "all") {
-        console.log("Trait doesn't match with one or more empire ethics, trying a different one");
         continue;
       }
 
@@ -43,9 +45,7 @@ class Empire {
       var hasConflictingTrait = false;
 
       traits.forEach(function (trait) {
-        console.log("Checking if " + trait.name + " conflicts with " + randomTrait.name);
         if (trait.opposites.indexOf(randomTrait.name) >= 0) {
-          console.log(randomTrait.name + " conflicts with " + trait.name);
           hasConflictingTrait = true;
         }
       });
@@ -54,13 +54,11 @@ class Empire {
 
       // Don't want to add the same trait twice
       if (traits.indexOf(randomTrait) >= 0) {
-        console.log("Trait already added");
         continue;
       }
 
       // Can't be left with fewer than zero points
       if (traits.length === 4 && (traitsPoints - randomTrait.cost) < 0) {
-        console.log("Trait would leave fewer than 0 trait points, trying again...");
         triesLeft--;
         continue;
       }
@@ -68,10 +66,8 @@ class Empire {
       if (randomTrait.cost < 0) {  // Negative trait
         if (traitsPoints > 0) {  // Trait points to spare
           if (Math.random() > 0.5) {
-            console.log("Not adding negative trait while trait points are positive this time");
             continue;
           } else {  // Sometimes add negative traits when we've got points to spare
-            console.log("Adding negative trait even though trait points are positive this time: " + randomTrait.name);
             traits.push(randomTrait);
             traitsPoints -= randomTrait.cost;
           }
@@ -82,30 +78,23 @@ class Empire {
       // not. This forces a balance around zero to stop points swinging too far
       // in one direction.
       if (traitsPoints > 0 && randomTrait.cost > 0) {
-        console.log("Adding positive trait: " + randomTrait.name);
         traits.push(randomTrait);
         traitsPoints -= randomTrait.cost;
       } else if (traitsPoints < 0 && randomTrait.cost < 0) {
-        console.log("Adding negative trait: " + randomTrait.name);
         traits.push(randomTrait);
         traitsPoints -= randomTrait.cost;
       } else if (traitsPoints === 0) {
-        console.log("Traits points balanced");
         // If there are fewer than three trait picks when balanced, there's a
         // 50% chance the algorithm will continue. If there are three or more,
         // then break.
         if (traits.length < 3) {
-          console.log("...but fewer than 3 traits");
           if (Math.random() > 0.5) {
-            console.log("Accept fewer than 3 traits");
             break;
           } else {
-            console.log("Adding new trait: " + randomTrait.name)
             traits.push(randomTrait);
             traitsPoints -= randomTrait.cost;
           }
         } else {
-          console.log("At least 3 traits - accepting");
           break;
         }
       }
@@ -117,9 +106,10 @@ class Empire {
   generateEthics() {
     var ethicsPoints = 3;
     var ethics = [];
+    var randomEthic;
 
     while (ethicsPoints > 0) {
-      var randomEthic = ethicsDict[ethicsList[this.getRandomIntInclusive(0, ethicsList.length - 1)]];
+      randomEthic = ethicsDict[ethicsList[this.getRandomIntInclusive(0, ethicsList.length - 1)]];
 
       // Don't allow adding of an ethic if it will take us over the ethics allowance
       if (randomEthic.cost > ethicsPoints) continue;
@@ -141,7 +131,7 @@ class Empire {
   }
 
   generateAuthority() {   
-    var empireEthics = getEmpireEthics();
+    var empireEthics = this.getEmpireEthics();
     var randomAuthority;
 
     do {
@@ -151,57 +141,125 @@ class Empire {
     return randomAuthority;
   }
 
+  matchesAuthority(civic) {
+    console.log("Checking if " + civic.name + " matches empire authority");
+    if (civic.requiredAuthority == "none") {
+      return true;
+    } else {
+      return civic.requiredAuthority.indexOf(this.authority.name) >= 0;
+    }
+  }
+
+  matchesRequiredEthics(civic) {
+    console.log("Checking if " + civic.name + " matches empire ethics");
+
+    if (civic.requiredEthics == "none") return true;
+
+    var numEthicsRequired = civic.requiredEthics.length;
+    var numEthicsMatched = 0;
+    var empireEthics = this.getEmpireEthics();
+
+    civic.requiredEthics.forEach(function (requiredEthic) {
+      empireEthics.forEach(function (empireEthic) {
+        if (empireEthic.indexOf(requiredEthic) >= 0) numEthicsMatched++;
+      });
+    });
+
+    return numEthicsMatched == numEthicsRequired;
+  }
+
+  noDisallowedEthics(civic) {
+    console.log("Checking if " + civic.name + " matches empire ethics");
+
+    if (civic.disallowedEthics == "none") return true;
+
+    var empireHasDisallowedEthic = false;
+    var empireEthics = this.getEmpireEthics();
+
+    civic.disallowedEthics.forEach(function (disallowedEthic) {
+      empireEthics.forEach(function (empireEthic) {
+        if (empireEthic.indexOf(disallowedEthic) >= 0) empireHasDisallowedEthic = true;
+      });
+    });
+
+    return !empireHasDisallowedEthic;
+  }
+
+  conflictingCivics(civic, civics) {
+    console.log("Checking if " + civic.name + " matches existing civics");
+
+    // Can't conflict with no civics!
+    if (civics.length === 0) return false;
+
+    if (civic.disallowedCivics == "none") return false;
+
+    var empireHasDisallowedCivic = false;
+
+    civics.forEach(function (existingCivic) {
+      if (existingCivic.disallowedCivics.indexOf(civic.name) >= 0) empireHasDisallowedCivic = true;
+    });
+
+    return empireHasDisallowedCivic;
+  }
+
+  duplicateCivics(civic, civics) {
+    console.log("Checking if " + civic.name + " has already been added");
+
+    // No duplicates if no civics!
+    if (civics.length === 0) return false;
+
+    var empireHasDuplicateCivic = false;
+
+    civics.forEach(function (existingCivic) {
+      if (existingCivic.name == civic.name) empireHasDuplicateCivic = true;
+    });
+
+    return empireHasDuplicateCivic;
+  }
+
+  getPossibleCivics() {
+    console.log("Generating possible civics")
+    var civic;
+    var empire = this;
+    var possibleCivics = [];
+
+    civicsList.forEach(function (civicName) {
+      civic = civicsDict[civicName];
+      if (civic.name == "Fanatic Purifiers") {
+        if (empire.canBeFanaticPurifiers()) {
+          console.log("Adding: " + civic.name);
+          possibleCivics.push(civic);
+        }
+      } else {
+        if (empire.matchesAuthority(civic) && 
+            empire.matchesRequiredEthics(civic) && 
+            empire.noDisallowedEthics(civic)) {
+          console.log("Adding: " + civic.name);
+          possibleCivics.push(civic);
+        }
+      }
+    });
+
+    return possibleCivics;
+  }
+
   generateCivics() {
     var civicsPoints = 2;
     var civics = [];
     var empireEthics = this.getEmpireEthics();
+    var possibleCivics = this.getPossibleCivics();
+    var randomCivic;
 
     while (civicsPoints !== 0) {
-      randomCivic = civicDict[civicList[this.getRandomIntInclusive(0, civicList.length - 1)]];
+      randomCivic = possibleCivics[this.getRandomIntInclusive(0, possibleCivics.length - 1)];
 
-      // Check special requirements for Fanatic Purifiers
-      if (randomCivic.name == "Fanatic Purifiers" && this.canBeFanaticPurifiers()) {
+      if (!this.conflictingCivics(randomCivic, civics) && !this.duplicateCivics(randomCivic, civics)) {
         civics.push(randomCivic);
         civicsPoints--;
-        continue;
       }
-
-      // Filter by required authority
-      if (randomCivic.requiredAuthority.indexOf(this.authority) < 0) continue;
-
-      // Filter by required ethics
-      var numEthicsRequired = randomCivic.requiredEthics.length;
-      var numEthicsMatched = 0;
-      randomCivic.requiredEthics.forEach(function (requiredEthic) {
-        empireEthics.forEach(function (empireEthic) {
-          if (empireEthic.name.indexOf(requiredEthic) >= 0) numEthicsMatched++;
-        });
-      });
-
-      if (numEthicsMatched != numEthicsRequired) continue;
-
-      // Filter by disallowed ethics
-      var empireHasDisallowedEthic = false;
-      
-      randomCivic.disallowedEthics.forEach(function (disallowedEthic) {
-        empireEthics.forEach(function (empireEthic) {
-          if (empireEthic.name.indexOf(disallowedEthic) >= 0) empireHasDisallowedEthic = true;
-        });
-      });
-
-      if (empireHasDisallowedEthic) continue;
-
-      // Filter by disallowed civics
-      var empireHasDisallowedCivic = false;
-      civics.forEach(function (civic) {
-        if (randomCivic.disallowedCivics.indexOf(civic.name) >= 0) empireHasDisallowedCivic = true;
-      });
-
-      if (empireHasDisallowedCivic) continue;
-
-      civics.push(randomCivic);
-      civicsPoints--;
     }
+
+    return civics;
   }
 
   getEmpireEthics() {
