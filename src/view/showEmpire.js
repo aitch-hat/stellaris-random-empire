@@ -19,8 +19,15 @@ odin.view.showEmpire = {
     ethicsString += "</ul>";
 
     var civicsString = "<ul class='demo-list-item mdl-list'>";
+    var civicIconName = "";
     empire.civics.forEach(function(civic) {
-      civicsString += "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + civic.name + "</span></li>";
+      if (civic.requiredAuthority == "Hive Mind")
+        civicIconName = "civic_hive_";
+      else
+        civicIconName = "civic_";
+
+      civicIconName += civic.name.replace(" ", "_").toLowerCase();
+      civicsString += "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + "<img src='images/icons/civics/" + civicIconName + ".png' alt='" + civic.name + "' style='padding-right: 6px'>" + civic.name + "</span></li>";
     });
     civicsString += "</ul>";
 
@@ -34,6 +41,7 @@ odin.view.showEmpire = {
     document.getElementById("empireTraits").innerHTML = traitsString;
     document.getElementById("empireEthics").innerHTML = ethicsString;
     document.getElementById("empireAuthority").innerHTML = "<ul class='demo-list-item mdl-list'><li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + 
+                                                           "<img src='images/icons/authorities/auth_" + empire.authority.name.toLowerCase() + ".png' alt='" + empire.authority.name + "' style='padding-right: 6px' height='29' width='29'>" +
                                                            empire.authority.name +
                                                            "</span></li></ul>";
     document.getElementById("empireCivics").innerHTML = civicsString;
