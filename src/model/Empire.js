@@ -33,6 +33,13 @@ class Empire {
         traits = [];
         triesLeft = 20;
       }
+
+      // Breaking even or having a surplus at five traits is fine; being in debt is not
+      if (traits.length == 5 && traitsPoints >= 0) {
+        break;
+      } else if (traits.length == 5 && traitsPoints < 0) {
+        traits = [];
+      }
       
       randomTrait = traitsDict[traitsList[this.getRandomIntInclusive(0, traitsList.length - 1)]];
 
@@ -58,7 +65,7 @@ class Empire {
       }
 
       // Can't be left with fewer than zero points
-      if (traits.length === 4 && (traitsPoints - randomTrait.cost) < 0) {
+      if (traits.length == 4 && (traitsPoints - randomTrait.cost) < 0) {
         triesLeft--;
         continue;
       }
