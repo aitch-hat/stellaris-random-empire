@@ -72,7 +72,7 @@ class Empire {
 
       if (randomTrait.cost < 0) {  // Negative trait
         if (traitsPoints > 0) {  // Trait points to spare
-          if (Math.random() > 0.5) {
+          if (Math.random() > 0.1) {
             continue;
           } else {  // Sometimes add negative traits when we've got points to spare
             traits.push(randomTrait);

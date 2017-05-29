@@ -3,8 +3,10 @@ odin.view.showEmpire = {
     var empire = new Empire();
 
     var traitsString = "<ul class='demo-list-item mdl-list'>";
+    var traitIconName = "";
     empire.traits.forEach(function(trait) {
-      traitsString += "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + trait.name + "</span></li>";
+      traitIconName = "trait_" + trait.name.replace(" ", "_").replace("-", "").toLowerCase();
+      traitsString += "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + "<img src='images/icons/traits/" + traitIconName + ".png' alt='" + trait.name + "' style='padding-right: 6px'>" + trait.name + "</span></li>";
     });
     traitsString += "</ul>";
 
