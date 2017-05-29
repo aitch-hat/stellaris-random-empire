@@ -249,3 +249,9 @@ html, body {
 .demo-list-item {
   width: 300px;
 }
+
+.circle-container-text {
+  color: white;
+  text-align: center;
+  padding-top: 11px;
+}
