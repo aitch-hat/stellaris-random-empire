@@ -11,8 +11,10 @@ odin.view.showEmpire = {
     traitsString += "</ul>";
 
     var ethicsString = "<ul class='demo-list-item mdl-list'>";
+    var ethicIconName = "";
     empire.ethics.forEach(function(ethic) {
-      ethicsString += "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + ethic.name + "</span></li>";
+      ethicIconName = "ethic_" + ethic.name.replace(" ", "_").toLowerCase();
+      ethicsString += "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + "<img src='images/icons/ethics/" + ethicIconName + ".png' alt='" + ethic.name + "' style='padding-right: 6px'>" + ethic.name + "</span></li>";
     });
     ethicsString += "</ul>";
 
