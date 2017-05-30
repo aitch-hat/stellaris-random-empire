@@ -150,7 +150,11 @@ class Empire {
 
   matchesAuthority(civic) {
     if (civic.requiredAuthority == "none") {
-      return true;
+      if (civic.requiredAuthority != "Hive Mind" && this.authority.name == "Hive Mind") {
+        return false;
+      } else {
+        return true;
+      }
     } else {
       return civic.requiredAuthority.indexOf(this.authority.name) >= 0;
     }
