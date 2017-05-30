@@ -78,7 +78,7 @@ var civicsDict = {
   "Mechanists": new Civic("Mechanists", ["none"], ["Materialist"], ["none"], ["Synchretic Evolution"], {"popsRobotOnStart": 4}),
   "Syncretic Evolution": new Civic("Syncretic Evolution", ["none"], ["none"], ["none"], ["Mechanists", "Fanatic Purifiers"], {"popsSyncreticOnStart": 4}),
   "Fanatic Purifiers": new Civic("Fanatic Purifiers", ["none"], ["fp"], ["none"], ["Synchretic Evolution"], {"shipFireRateMult": 0.33, "armyDamageMult": 0.33, "traditionCostNumXenoSlavesMult": -1.0}),
-  "Subspace Ephapse": new Civic("Subspace Ephase", ["Hive Mind"], ["Hive Mind"], ["none"], ["none"], {"navySizeMult": 0.15}),
+  "Subspace Ephapse": new Civic("Subspace Ephapse", ["Hive Mind"], ["Hive Mind"], ["none"], ["none"], {"navySizeMult": 0.15}),
   "Natural Neural Network": new Civic("Natural Neural Network", ["Hive Mind"], ["Hive Mind"], ["none"], ["none"], {"numTechAlternativesAdd": 1}),
   "Ascetic": new Civic("Ascetic", ["Hive Mind"], ["Hive Mind"], ["none"], ["none"], {"popConsumerGoodsMult": -0.2}),
   "One Mind": new Civic("One Mind", ["Hive Mind"], ["Hive Mind"], ["none"], ["none"], {"countryResourceUnityMult": 0.15}),
