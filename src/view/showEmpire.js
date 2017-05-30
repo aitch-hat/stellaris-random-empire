@@ -41,7 +41,7 @@ odin.view.showEmpire = {
     document.getElementById("empireTraits").innerHTML = traitsString;
     document.getElementById("empireEthics").innerHTML = ethicsString;
     document.getElementById("empireAuthority").innerHTML = "<ul class='demo-list-item mdl-list'><li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + 
-                                                           "<img src='images/icons/authorities/auth_" + empire.authority.name.toLowerCase() + ".png' alt='" + empire.authority.name + "' style='padding-right: 6px' height='29' width='29'>" +
+                                                           "<img src='images/icons/authorities/auth_" + empire.authority.name.replace(" ", "_").toLowerCase() + ".png' alt='" + empire.authority.name + "' style='padding-right: 6px' height='29' width='29'>" +
                                                            empire.authority.name +
                                                            "</span></li></ul>";
     document.getElementById("empireCivics").innerHTML = civicsString;
