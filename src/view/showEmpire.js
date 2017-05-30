@@ -5,7 +5,7 @@ odin.view.showEmpire = {
     var traitsString = "<ul class='demo-list-item mdl-list'>";
     var traitIconName = "";
     empire.traits.forEach(function(trait) {
-      traitIconName = "trait_" + trait.name.replace(" ", "_").replace("-", "").toLowerCase();
+      traitIconName = "trait_" + trait.name.replace(/\s/g, "_").replace(/-/g, "").toLowerCase();
       traitsString += "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + "<img src='images/icons/traits/" + traitIconName + ".png' alt='" + trait.name + "' style='padding-right: 6px'>" + trait.name + "</span></li>";
     });
     traitsString += "</ul>";
@@ -13,7 +13,7 @@ odin.view.showEmpire = {
     var ethicsString = "<ul class='demo-list-item mdl-list'>";
     var ethicIconName = "";
     empire.ethics.forEach(function(ethic) {
-      ethicIconName = "ethic_" + ethic.name.replace(" ", "_").toLowerCase();
+      ethicIconName = "ethic_" + ethic.name.replace(/\s/g, "_").toLowerCase();
       ethicsString += "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + "<img src='images/icons/ethics/" + ethicIconName + ".png' alt='" + ethic.name + "' style='padding-right: 6px'>" + ethic.name + "</span></li>";
     });
     ethicsString += "</ul>";
@@ -26,7 +26,7 @@ odin.view.showEmpire = {
       else
         civicIconName = "civic_";
 
-      civicIconName += civic.name.replace(" ", "_").toLowerCase();
+      civicIconName += civic.name.replace(/\s/g, "_").toLowerCase();
       civicsString += "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + "<img src='images/icons/civics/" + civicIconName + ".png' alt='" + civic.name + "' style='padding-right: 6px'>" + civic.name + "</span></li>";
     });
     civicsString += "</ul>";
@@ -41,7 +41,7 @@ odin.view.showEmpire = {
     document.getElementById("empireTraits").innerHTML = traitsString;
     document.getElementById("empireEthics").innerHTML = ethicsString;
     document.getElementById("empireAuthority").innerHTML = "<ul class='demo-list-item mdl-list'><li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + 
-                                                           "<img src='images/icons/authorities/auth_" + empire.authority.name.replace(" ", "_").toLowerCase() + ".png' alt='" + empire.authority.name + "' style='padding-right: 6px' height='29' width='29'>" +
+                                                           "<img src='images/icons/authorities/auth_" + empire.authority.name.replace(/\s/g, "_").toLowerCase() + ".png' alt='" + empire.authority.name + "' style='padding-right: 6px' height='29' width='29'>" +
                                                            empire.authority.name +
                                                            "</span></li></ul>";
     document.getElementById("empireCivics").innerHTML = civicsString;
@@ -50,7 +50,7 @@ odin.view.showEmpire = {
                                                         randomHomeworld +
                                                         "</span></li></ul>";
     document.getElementById("empireFtl").innerHTML = "<ul class='demo-list-item mdl-list'><li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + 
-                                                     "<img src='images/icons/drives/ship_part_" + randomFtl.replace(" ", "_").toLowerCase() + ".png' alt='" + randomFtl + "' style='padding-right: 6px' height='29' width='29'>" +
+                                                     "<img src='images/icons/drives/ship_part_" + randomFtl.replace(/\s/g, "_").toLowerCase() + ".png' alt='" + randomFtl + "' style='padding-right: 6px' height='29' width='29'>" +
                                                      randomFtl +
                                                      "</span></li></ul>";
     document.getElementById("empireWeapon").innerHTML = "<ul class='demo-list-item mdl-list'><li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + 
